@@ -1,0 +1,33 @@
+/*
+用自然语言描述下列程序：
+1.设置环境
+2.定义变量i flag 和password，并令flag=0，i=0
+3.用户回答口令，将其赋予password
+4.正确则返回flag=1，转6，否则转5
+5.回答三次口令了吗？没有则i加1，转3否则转6
+6.根据flag的值输出结果
+
+*/
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char password[15];
+    for(int i=0;i<3;i++)
+    {
+        scanf("%s", password);
+        if (strcmp(password, "abcdef")==0)
+    {
+        int flag=1;
+        printf("口令正确\n");
+        return 0;
+    }
+        else
+        {
+            int flag=0;
+            i==2 ? printf("已超三次\n"):printf("请继续输入\n");
+        }
+    }
+    return 0;
+    //flag并未使用，只作为标志，运行会有问题但不报错，删掉也无妨
+}
