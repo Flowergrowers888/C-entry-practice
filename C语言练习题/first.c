@@ -6,6 +6,7 @@
 
 //bool data(int x);(21题)
 
+// void star(int m);(22题)
 int main()
 {
 /*1.
@@ -253,4 +254,29 @@ return 0;
 //     return 1;
 // }
 
+
+//22.输出n行由#组成的矩形，每行m个,　ｍ　ｎ由终端输入，要求用定义star（）函数实现输出矩形
+// int m=0;
+// printf("请输入列数\n");
+// scanf("%d",&m);
+// star(m);
+// }
+
+
+// //实现输出列
+// void star(int m){
+//     int n;
+//     printf("请输入行数\n");
+//     scanf("%d",&n);
+//     for(int i=0;i<n;i++){
+//         for(int i=0;i<m;i++){
+//              printf("#");
+//         }
+//         printf("\n");
+       
+//     }
+// }
+
+
+//24题：输入两个字符串判断是否相同
 }
