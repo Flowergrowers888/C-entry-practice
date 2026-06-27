@@ -7,6 +7,8 @@
 //bool data(int x);(21题)
 
 // void star(int m);(22题)
+
+bool stringcmp();
 int main()
 {
 /*1.
@@ -279,4 +281,34 @@ return 0;
 
 
 //24题：输入两个字符串判断是否相同
+if(stringcmp())
+{
+    printf("相等\n");
+}
+else
+{
+    printf("不相等\n");
+}
+return 0;
+}
+
+
+bool stringcmp()
+{
+    char a[50];
+    char b[50];
+    printf("请输入一个字符串\n");
+    scanf("%s",a);
+    printf("请输入另一个字符串\n");
+    scanf("%s",b);
+    if(strcmp(a,b))//返回值<(短) 0 >(长)
+    {
+        return false;
+        
+    }
+    else
+    {
+        return true;
+    }
+    
 }
