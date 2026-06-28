@@ -2,20 +2,21 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
             "label": "useEasyx",
-            "command": "C:\\mingw64\\bin\\g++.exe",
+            "type": "cppbuild",
+            "command": "C:/mingw64/bin/g++.exe",
             "args": [
-                "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}/*.cpp",
                 "-o",
                 "${workspaceFolder}/easyxtest.exe",
-                "-Wall",
                 "-I${workspaceFolder}/include",
-                "-L${workspaceFolder}/lib64",
+                "-L${workspaceFolder}/lib",
+                "-Wno-unknown-pragmas",
                 "-leasyx",
-                "-lgdi32"
+                "-lgdi32",
+                "-lole32",
+                "-lgdiplus"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -26,8 +27,7 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "编译器: C:\\mingw64\\bin\\g++.exe"
+            }
         }
     ]
 }
