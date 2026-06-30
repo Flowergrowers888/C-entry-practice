@@ -1,4 +1,4 @@
-﻿#include <easyx.h>
+﻿/*#include <easyx.h>
 #include <stdio.h>
 #include <conio.h>
 
@@ -29,3 +29,4 @@ int main()
     closegraph();
     return 0;
 }
+*/
