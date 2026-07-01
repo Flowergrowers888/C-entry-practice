@@ -1,4 +1,4 @@
-#undef UNICODE
+/*#undef UNICODE
 #undef _UNICODE
 #include <graphics.h>
 #include <conio.h>
@@ -453,4 +453,21 @@ int main()
 
 	// 结束游戏
 	closegraph();							// 关闭绘图窗口
+}
+*/
+#include <graphics.h>
+#include <stdio.h>
+
+int main()
+{
+	//1.创建界面，width:宽;height:高;单位:px
+	initgraph(800,800);
+
+
+	//卡屏(getchar或者while死循环均可)
+	getchar();
+	
+	//while(1);
+
+	return 0;
 }
