@@ -461,9 +461,25 @@ int main()
 int main()
 {
 	//1.创建界面，width:宽;height:高;单位:px
-	initgraph(800,800);
 
+	initgraph(500,480);
 
+	//绘制白块，四行五列，一格宽100 高120 
+	//格子本身就是矩形
+
+	//设置填充矩形线条颜色
+	setlinecolor(BLACK);
+	//循环控制填充
+	for(int i=0;i<4;i++)
+	{
+		for(int j=0;j<5;j++)
+		{
+				// 参数  对角线填充  left top right bottom
+			fillrectangle(j*100,i*120,j*100+100,i*120+120);//绘制一个填充的矩形
+		}
+
+	}
+	
 	//卡屏(getchar或者while死循环均可)
 	getchar();
 	
