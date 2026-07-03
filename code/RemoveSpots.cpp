@@ -457,13 +457,29 @@ int main()
 */
 #include <graphics.h>
 #include <stdio.h>
+#include <time.h>
+#define N 5
+int Map[5];//定义数组存储黑块位置
 
-int main()
+void InitBlack(){//随机产生黑块坐标
+	//4行
+	for(int i=0;i<N-1;i++)
+	{
+		Map[i]=rand()%N;//0~4
+	}
+}
+void DrawBlack()//随机擦除白块
 {
-	//1.创建界面，width:宽;height:高;单位:px
+	//根据随机数组进行产生黑块
+	for(int i=0;i<N-1;i++)
+	{
+		fillrectangle(Map[i]*100,i*120,Map[i]*100+100,i*120+120);
+	}
+}
 
-	initgraph(500,480);
-
+//绘制界面（函数）
+void Draw()
+{
 	//绘制白块，四行五列，一格宽100 高120 
 	//格子本身就是矩形
 
@@ -479,7 +495,20 @@ int main()
 		}
 
 	}
+	setfillcolor(BLACK);
+	DrawBlack();
+}
+int main()
+{
+
+	srand((unsigned)time(NULL));//通过时间做随机数的种子
+	//1.创建界面，width:宽;height:高;单位:px
+	initgraph(500,480);//初始白块
+	InitBlack();	//绘制黑块
 	
+	//调用函数，绘制
+	Draw();
+
 	//卡屏(getchar或者while死循环均可)
 	getchar();
 	
