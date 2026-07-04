@@ -504,6 +504,16 @@ int main()
 	srand((unsigned)time(NULL));//通过时间做随机数的种子
 	//1.创建界面，width:宽;height:高;单位:px
 	initgraph(500,480);//初始白块
+	
+	MOUSEMSG msg;
+	msg=GetMouseMsg();//捕获鼠标消息
+	if(msg.uMsg==WM_LBUTTONDOWN){
+
+	}
+	else if(msg.uMsg==WM_RBUTTONDOWN){
+		
+	}
+	
 	InitBlack();	//绘制黑块
 	
 	//调用函数，绘制
