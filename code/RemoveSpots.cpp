@@ -468,6 +468,8 @@ void InitBlack(){//随机产生黑块坐标
 		Map[i]=rand()%N;//0~4
 	}
 }
+
+
 void DrawBlack()//随机擦除白块
 {
 	//根据随机数组进行产生黑块
@@ -477,6 +479,7 @@ void DrawBlack()//随机擦除白块
 	}
 }
 
+
 //绘制界面（函数）
 void Draw()
 {
@@ -485,6 +488,7 @@ void Draw()
 
 	//设置填充矩形线条颜色
 	setlinecolor(BLACK);
+
 	//循环控制填充
 	for(int i=0;i<4;i++)
 	{
@@ -498,27 +502,37 @@ void Draw()
 	setfillcolor(BLACK);
 	DrawBlack();
 }
+
+
 int main()
 {
 
 	srand((unsigned)time(NULL));//通过时间做随机数的种子
 	//1.创建界面，width:宽;height:高;单位:px
-	initgraph(500,480);//初始白块
+	initgraph(500,480,EX_SHOWCONSOLE);//初始白块
 	
+	while (1)
+	{
 	MOUSEMSG msg;
 	msg=GetMouseMsg();//捕获鼠标消息
 	if(msg.uMsg==WM_LBUTTONDOWN){
+		printf("左键\n");
+		printf("%d,%d\n",msg.x,msg.y);
 
 	}
 	else if(msg.uMsg==WM_RBUTTONDOWN){
-		
+		printf("右键\n");
+		printf("%d,%d\n",msg.x,msg.y);
+	}
 	}
 	
-	InitBlack();	//绘制黑块
-	
-	//调用函数，绘制
-	Draw();
 
+	/*
+	InitBlack();	//产生黑块坐标
+	
+	//调用函数，绘制白块后绘制黑块
+	Draw();
+*/
 	//卡屏(getchar或者while死循环均可)
 	getchar();
 	
