@@ -461,6 +461,8 @@ int main()
 #define N 5
 int Map[5];//定义数组存储黑块位置
 
+int MapX,MapY,Score=0;//坐标及分数全局变量
+
 void InitBlack(){//随机产生黑块坐标
 	//4行
 	for(int i=0;i<N-1;i++)
@@ -485,9 +487,12 @@ void Draw()
 {
 	//绘制白块，四行五列，一格宽100 高120 
 	//格子本身就是矩形
+	BeginBatchDraw();
 
+	cleardevice();//清屏
 	//设置填充矩形线条颜色
 	setlinecolor(BLACK);
+	setfillcolor(WHITE);//填充为白色
 
 	//循环控制填充
 	for(int i=0;i<4;i++)
@@ -499,10 +504,36 @@ void Draw()
 		}
 
 	}
-	setfillcolor(BLACK);
+	setfillcolor(BLACK);//填充为黑色
 	DrawBlack();
+	EndBatchDraw();
 }
 
+bool Play(){		//开始游戏
+	MOUSEMSG msg;//定义变量存储鼠标信息
+	msg=GetMouseMsg();//捕获鼠标信息
+	switch(msg.uMsg){
+		case WM_LBUTTONDOWN://鼠标左键按下，根据鼠标点击位置计算对应坐标
+		MapY=msg.y/120;//根据公式计算出鼠标位置（此处整除）120为块的高度
+		MapX=msg.x/100;//100为宽度
+
+		//Map[3]存储的是黑格子的列号  行号只能为3即点击最下方
+		if(Map[3]==MapX&&MapY==3){
+			for (int i=3;i>0;i--){
+				Map[i]=Map[i-1];//成功后将整体下移一行
+			}
+			Map[0]=rand()%N;//随机再产生一个新格子
+			Score+=10;
+			printf("点击了黑块！\n");
+		}
+		else{
+			printf("未点击黑块！\n");
+			return true;
+		}
+		break;
+	}
+	return false;
+}
 
 int main()
 {
@@ -510,7 +541,8 @@ int main()
 	srand((unsigned)time(NULL));//通过时间做随机数的种子
 	//1.创建界面，width:宽;height:高;单位:px
 	initgraph(500,480,EX_SHOWCONSOLE);//初始白块
-	
+
+	/*
 	while (1)
 	{
 	MOUSEMSG msg;
@@ -525,14 +557,24 @@ int main()
 		printf("%d,%d\n",msg.x,msg.y);
 	}
 	}
+	*/
+
+
+	InitBlack();	//产生黑块坐标
+	while (1)
+	{
+		//调用函数，绘制白块后绘制黑块
+		Draw();
+		if(Play()){
+			char str[128];
+			sprintf(str,"总计消除:%d,总计得分:%d",Score/10,Score);
+			MessageBox(GetHWnd(),str,"Game Over",MB_OK);
+			exit(0);//结束程序
+		}
+	}
+	
 	
 
-	/*
-	InitBlack();	//产生黑块坐标
-	
-	//调用函数，绘制白块后绘制黑块
-	Draw();
-*/
 	//卡屏(getchar或者while死循环均可)
 	getchar();
 	
