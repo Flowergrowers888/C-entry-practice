@@ -455,9 +455,17 @@ int main()
 	closegraph();							// 关闭绘图窗口
 }
 */
+
+
+
+
+//跟练
+
+/*
 #include <graphics.h>
 #include <stdio.h>
 #include <time.h>
+#include <wchar.h>
 #define N 5
 int Map[5];//定义数组存储黑块位置
 
@@ -542,22 +550,26 @@ int main()
 	//1.创建界面，width:宽;height:高;单位:px
 	initgraph(500,480,EX_SHOWCONSOLE);//初始白块
 
-	/*
-	while (1)
-	{
-	MOUSEMSG msg;
-	msg=GetMouseMsg();//捕获鼠标消息
-	if(msg.uMsg==WM_LBUTTONDOWN){
-		printf("左键\n");
-		printf("%d,%d\n",msg.x,msg.y);
 
-	}
-	else if(msg.uMsg==WM_RBUTTONDOWN){
-		printf("右键\n");
-		printf("%d,%d\n",msg.x,msg.y);
-	}
-	}
-	*/
+
+	//鼠标信息获取测试
+	(
+	// while (1)
+	// {
+	// MOUSEMSG msg;
+	// msg=GetMouseMsg();//捕获鼠标消息
+	// if(msg.uMsg==WM_LBUTTONDOWN){
+	// 	printf("左键\n");
+	// 	printf("%d,%d\n",msg.x,msg.y);
+
+	// }
+	// else if(msg.uMsg==WM_RBUTTONDOWN){
+	// 	printf("右键\n");
+	// 	printf("%d,%d\n",msg.x,msg.y);
+	// }
+	// }
+	)
+
 
 
 	InitBlack();	//产生黑块坐标
@@ -581,4 +593,21 @@ int main()
 	//while(1);
 
 	return 0;
+
 }
+*/
+
+
+
+
+/*
+总体思路：
+1.初始界面为白块，计算长宽		initgraph	setfillcolor	fillrectangle	BeginBatchDraw()	EndBatchDraw
+2.线框颜色填充	setlinecolor
+3.每行随机擦除白块产生黑块
+4.鼠标信息获取判断与黑块位置是否一致，对应操作至结束 
+MOUSEMSG msg;//定义变量存储鼠标信息	
+GetMouseMsg()  msg.uMsg==WM_RBUTTONDOWN  msg.uMsg==WM_LBUTTONDOWN
+5.擦除黑块产生新一组	cleardevice();清屏
+6.输出分数与消除数量   sprintf  MessageBox
+*/
