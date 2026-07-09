@@ -602,7 +602,7 @@ int main()
 
 /*
 总体思路：
-1.初始界面为白块，计算长宽		initgraph	setfillcolor	fillrectangle	BeginBatchDraw()	EndBatchDraw
+1.初始界面为白块，计算长宽		initgraph	setfillcolor	fillrectangle	BeginBatchDraw	EndBatchDraw
 2.线框颜色填充	setlinecolor
 3.每行随机擦除白块产生黑块
 4.鼠标信息获取判断与黑块位置是否一致，对应操作至结束 
@@ -611,3 +611,35 @@ GetMouseMsg()  msg.uMsg==WM_RBUTTONDOWN  msg.uMsg==WM_LBUTTONDOWN
 5.擦除黑块产生新一组	cleardevice();清屏
 6.输出分数与消除数量   sprintf  MessageBox
 */
+
+#include <stdio.h>
+#include <graphics.h>
+#include <time.h>
+#define N 5
+int BlackStatus[5];
+void InitBlack(){
+	for(int i=0;i<5;i++){
+	BlackStatus[i]=rand()%5;
+	printf("%d",BlackStatus[i]);
+	}
+}
+
+
+void Draw(){//定义函数绘制
+		setfillcolor(WHITE);//设置填充颜色
+		setlinecolor(BLACK);//设置线框颜色
+		for(int i=0;i<5;i++)//对每格进行填充
+			{for(int j=0;j<6;j++){
+		fillrectangle(i*120,j*100,(i+1)*120,(j+1)*100);}
+	}
+	
+}
+
+int main(){
+	
+	initgraph(600,600,EX_SHOWCONSOLE);//初始界面,5列6行
+	Draw();
+	InitBlack();
+	getchar();
+
+}
