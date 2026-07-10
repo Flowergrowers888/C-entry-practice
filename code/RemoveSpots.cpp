@@ -616,12 +616,23 @@ GetMouseMsg()  msg.uMsg==WM_RBUTTONDOWN  msg.uMsg==WM_LBUTTONDOWN
 #include <graphics.h>
 #include <time.h>
 #define N 5
-int BlackStatus[5];
-void InitBlack(){
-	for(int i=0;i<5;i++){
+int BlackStatus[6];
+
+//黑块位置
+void BlackData(){
+	for(int i=0;i<6;i++){
 	BlackStatus[i]=rand()%5;
-	printf("%d",BlackStatus[i]);
+	//printf("%d\n",BlackStatus[i]);
 	}
+}
+
+//绘制黑块
+void InitBlack(){
+	setfillcolor(BLACK);
+	for(int i=0;i<6;i++){
+		fillrectangle(BlackStatus[i]*120,i*100,BlackStatus[i]*120+120, i*100+100);
+	}
+	
 }
 
 
@@ -636,9 +647,10 @@ void Draw(){//定义函数绘制
 }
 
 int main(){
-	
+	srand((unsigned)time(NULL));//通过时间做随机数的种子
 	initgraph(600,600,EX_SHOWCONSOLE);//初始界面,5列6行
 	Draw();
+	BlackData();
 	InitBlack();
 	getchar();
 
