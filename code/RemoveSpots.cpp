@@ -610,6 +610,9 @@ MOUSEMSG msg;//定义变量存储鼠标信息
 GetMouseMsg()  msg.uMsg==WM_RBUTTONDOWN  msg.uMsg==WM_LBUTTONDOWN
 5.擦除黑块产生新一组	cleardevice();清屏
 6.输出分数与消除数量   sprintf  MessageBox
+
+
+关键部分：怎么实现动态更新
 */
 
 #include <stdio.h>
@@ -617,6 +620,8 @@ GetMouseMsg()  msg.uMsg==WM_RBUTTONDOWN  msg.uMsg==WM_LBUTTONDOWN
 #include <time.h>
 #define N 5
 int BlackStatus[6];
+MOUSEMSG msg;
+int MsgX,MsgY,Score;
 
 //黑块位置
 void BlackData(){
@@ -624,6 +629,35 @@ void BlackData(){
 	BlackStatus[i]=rand()%5;
 	//printf("%d\n",BlackStatus[i]);
 	}
+}
+
+//鼠标位置获取及擦除即判断游戏开始
+bool Map(){
+	
+	while(1)
+	{
+		msg=GetMouseMsg();//必须放在循环内部，否则鼠标信息不更新
+		MsgX=msg.x;
+		MsgY=msg.y;
+		if(msg.uMsg==WM_LBUTTONDOWN)//必须放外面，与判断鼠标位置一起判断的话是不行的，在鼠标按下前每次执行语句都会执行else语句导致直接结束
+		{
+		if(MsgX/120==BlackStatus[5]&&MsgY/100==5){				//判定用==而不是=（赋值）为真则一直输出
+		for(int i=5;i>=0;i--){//for 和左键按下判断应该是判断在前，这样内部循环才能更新	（逻辑结构问题） 
+															//printf("%d     ",BlackStatus[i]);
+				BlackStatus[i]=BlackStatus[i-1];
+															// // printf("%d     ",BlackStatus[i]);
+															// printf("%d,%d\n",MsgX,MsgY);
+															// // printf("左键\n");
+			}
+			BlackStatus[0]=rand()%5;
+			Score+=10;
+				return false;
+		}
+		 else{
+		 	return true;
+		}break;
+	}}
+	return false;
 }
 
 //绘制黑块
@@ -636,22 +670,30 @@ void InitBlack(){
 }
 
 
-void Draw(){//定义函数绘制
+void Draw(){//绘制并且实现动态更新
 		setfillcolor(WHITE);//设置填充颜色
 		setlinecolor(BLACK);//设置线框颜色
 		for(int i=0;i<5;i++)//对每格进行填充
 			{for(int j=0;j<6;j++){
-		fillrectangle(i*120,j*100,(i+1)*120,(j+1)*100);}
-	}
-	
+		fillrectangle(i*120,j*100,(i+1)*120,(j+1)*100);}//绘制白块
+		}
+		InitBlack();//绘制黑块但是游戏开始时要生成新的随机数补充到第1行
 }
+
 
 int main(){
 	srand((unsigned)time(NULL));//通过时间做随机数的种子
 	initgraph(600,600,EX_SHOWCONSOLE);//初始界面,5列6行
-	Draw();
 	BlackData();
-	InitBlack();
+	while(1){
+		Draw();
+		if(Map()){//为真则游戏开始返回false不断循环，游戏继续为假返回true执行则游戏失败代码显示
+			char str[128];//声明字符串输出对话框
+			sprintf(str,"总计消除%d,总计得分%d",Score/10,Score);
+			MessageBox(GetHWnd(),str,"Game Over",MB_OK);
+			exit(0);
+		}
+	}
 	getchar();
 
 }
