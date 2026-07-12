@@ -612,9 +612,13 @@ GetMouseMsg()  msg.uMsg==WM_RBUTTONDOWN  msg.uMsg==WM_LBUTTONDOWN
 6.输出分数与消除数量   sprintf  MessageBox
 
 
-关键部分：怎么实现动态更新
+关键部分：怎么实现动态更新：判断游戏开始时，当捕获到左键按的位置与黑块位置相同则更新黑块位置数组
+并补充随机黑块到第一行即实现更新
 */
 
+
+
+/*
 #include <stdio.h>
 #include <graphics.h>
 #include <time.h>
@@ -697,3 +701,4 @@ int main(){
 	getchar();
 
 }
+*/
