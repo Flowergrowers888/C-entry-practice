@@ -1,4 +1,6 @@
-// /**/
+//代码未跑通
+
+
 // #define _BGI_CONFIDENTIAL   // 关键宏，开启底层BGI接口
 
 // #include <graphics.h>
@@ -894,5 +896,24 @@
 //                break;
 //      }
 //      closegraph();
+// }
+
+
+
+
+// #include <graphics.h>
+// #include <easyx.h>
+// #include <stdio.h>
+
+// int main(){
+//     //创建界面
+//     initgraph(500,500);
+//     //插入背景图，贴图三部曲（定义变量，赋值，显示输出）
+//     IMAGE img;//定义
+//     loadimage(&img,L"C:/Users/Gaius Julius Caesar/Downloads/bk.jpg",0,0,true);//加载，注此处未改设置和教程不同用了  L
+//     putimage(0,0,&img);//贴图，前俩参数代表x，y图片位置，第三个就是显示图片的变量
+//     //卡屏
+//     getchar();
+//     return 0;
 // }
 
