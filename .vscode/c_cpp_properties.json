@@ -4,6 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
+                
+                "C:\\mingw64\\x86_64-w64-mingw32\\include",
                 "E:\\VSCODES\\include\\**"
             ],
             "defines": [

@@ -8,11 +8,15 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+
+                "-I", "C:/mingw64/x86_64-w64-mingw32/include",
+                "-L", "C:/mingw64/lib",
+                "-I","E:\\VSCODES\\include","E:\\VSCODES\\lib\\**",
+                
+                "-Wno-unknown-pragmas",
                 "${fileDirname}\\*.cpp",
                 "-o",
                 "E:\\VSCODES\\output_exe\\${fileBasenameNoExtension}.exe",
-                "-I","E:\\VSCODES\\include","E:\\VSCODES\\lib\\**",
-                "-Wno-unknown-pragmas",
                 "-leasyx",
                 "-lgdi32",
                 "-lole32",
