@@ -1,8 +1,9 @@
 #include <graphics.h>
 #include <stdio.h>
+#include <math.h>
 //初始化游戏
 void initGame(){
-    initgraph(600,500);////创建界面
+    initgraph(600,500,SHOWCONSOLE);////创建界面
     loadimage(NULL,"C:/Users/Gaius Julius Caesar/Downloads/bk.jpg");//加载图片默认到原点
 
     setlinecolor(BLACK);//线条颜色
@@ -22,7 +23,29 @@ int main(){
 
     initGame();
 
-    //07该到鼠标信息
+    //鼠标信息
+    MOUSEMSG Msg;//定义变量
+
+    int ChessX,ChessY;
+    while(1){
+        Msg=GetMouseMsg();//获取鼠标信息
+        // if(Msg.uMsg==WM_LBUTTONDOWN){
+        //     printf("X:%d,Y:%d\n",Msg.x,Msg.y);
+        // }
+        // else if(Msg.uMsg==WM_RBUTTONDOWN){
+        //     printf("R");
+        // }
+        for(int i=1;i<20;i++){//行  找Y
+            for(int j=1;j<20;j++){//列  找X
+                if(abs(Msg.x-j*25)<12&&abs(Msg.y-i*25)<25){//abs为取绝对值，最终要落到交点为圆心的圆范围
+                    ChessX=j*25;
+                    ChessY=i*25;
+                }
+            }
+        }
+        printf("ChessX=%d,ChessY=%d\n",ChessX,ChessY);
+    }
+
     //卡屏
     getchar();
     return 0;
