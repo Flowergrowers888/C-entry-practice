@@ -35,15 +35,15 @@ int main(){
         // else if(Msg.uMsg==WM_RBUTTONDOWN){
         //     printf("R");
         // }
-        for(int i=1;i<20;i++){//行  找Y
-            for(int j=1;j<20;j++){//列  找X
-                if(abs(Msg.x-j*25)<12&&abs(Msg.y-i*25)<25){//abs为取绝对值，最终要落到交点为圆心的圆范围
-                    ChessX=j*25;
-                    ChessY=i*25;
-                }
-            }
-        }
-        printf("ChessX=%d,ChessY=%d\n",ChessX,ChessY);
+        // for(int i=1;i<20;i++){//行  找Y
+        //     for(int j=1;j<20;j++){//列  找X
+        //         if(abs(Msg.x-j*25)<12&&abs(Msg.y-i*25)<25){//abs为取绝对值，最终要落到交点为圆心的圆范围
+        //             ChessX=j*25;
+        //             ChessY=i*25;
+        //         }
+        //     }
+        // }
+        // printf("ChessX=%d,ChessY=%d\n",ChessX,ChessY);
     }
 
     //卡屏
