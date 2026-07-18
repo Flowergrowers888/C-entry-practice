@@ -1,6 +1,7 @@
 #include <graphics.h>
 #include <stdio.h>
 #include <math.h>
+int flag=0;//黑白标志
 //初始化游戏
 void initGame(){
     initgraph(600,500,SHOWCONSOLE);////创建界面
@@ -19,32 +20,60 @@ void initGame(){
     outtextxy(520,20,"P1:Black");//输出玩家信息
     outtextxy(520,40,"P2:White");
 }
+
+//开始游戏
+void PlayGame(){
+        //鼠标信息
+    MOUSEMSG Msg;//定义变量
+
+    int ChessX=0,ChessY=0;
+    while(1){
+        Msg=GetMouseMsg();//获取鼠标信息
+        ChessX=(Msg.x+12.5)/25;//此处只是索引，不能在此处*25原因不是整数而是浮点数，可以取整
+        ChessY=(Msg.y+12.5)/25;
+        
+        printf("ChessX=%d,ChessY=%d\n",ChessX*25,ChessY*25);
+        /*       
+        if(Msg.uMsg==WM_LBUTTONDOWN){
+            printf("X:%d,Y:%d\n",Msg.x,Msg.y);
+        }
+        else if(Msg.uMsg==WM_RBUTTONDOWN){
+            printf("R");
+        }
+        for(int i=1;i<20;i++){//行  找Y
+            for(int j=1;j<20;j++){//列  找X
+                if(abs(Msg.x-j*25)<12&&abs(Msg.y-i*25)<25){//abs为取绝对值，最终要落到交点为圆心的圆范围
+                    ChessX=j*25;
+                    ChessY=i*25;
+                }
+            }
+        }
+        printf("ChessX=%d,ChessY=%d\n",ChessX,ChessY);
+        */
+        if(Msg.uMsg==WM_LBUTTONDOWN){//判断左键按下绘制棋子
+            
+            if(flag%2==0){
+                setfillcolor(BLACK);//黑色
+                solidcircle(ChessX*25,ChessY*25,10);
+                flag++;
+            }
+            else if(flag%2==1){
+                setfillcolor(WHITE);//白色
+                solidcircle(ChessX*25,ChessY*25,10);
+                flag++;
+            }
+            
+    }
+        
+    }
+
+    
+}
 int main(){
 
     initGame();
 
-    //鼠标信息
-    MOUSEMSG Msg;//定义变量
-
-    int ChessX,ChessY;
-    while(1){
-        Msg=GetMouseMsg();//获取鼠标信息
-        // if(Msg.uMsg==WM_LBUTTONDOWN){
-        //     printf("X:%d,Y:%d\n",Msg.x,Msg.y);
-        // }
-        // else if(Msg.uMsg==WM_RBUTTONDOWN){
-        //     printf("R");
-        // }
-        // for(int i=1;i<20;i++){//行  找Y
-        //     for(int j=1;j<20;j++){//列  找X
-        //         if(abs(Msg.x-j*25)<12&&abs(Msg.y-i*25)<25){//abs为取绝对值，最终要落到交点为圆心的圆范围
-        //             ChessX=j*25;
-        //             ChessY=i*25;
-        //         }
-        //     }
-        // }
-        // printf("ChessX=%d,ChessY=%d\n",ChessX,ChessY);
-    }
+    PlayGame();
 
     //卡屏
     getchar();
