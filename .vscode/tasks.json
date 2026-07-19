@@ -18,6 +18,7 @@
                 "-o",
                 "E:\\VSCODES\\output_exe\\${fileBasenameNoExtension}.exe",
                 "-leasyx",
+                "-lwinmm",
                 "-lgdi32",
                 "-lole32",
                 "-lgdiplus"
