@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <mmsystem.h>
+#include <windows.h>
 #pragma comment(lib,"winmm.lib")//多媒体接口
 int flag=0;//黑白标志
 int ChessMap[21][21]={0};//记录棋子数组用来判断胜利,这里21不是20是因为脏数据导致之前的记录会弹对话框“error station”
@@ -121,8 +122,8 @@ void PlayGame(){
 }   
 }
 int main(){
-    // mciSendString("open \"D:\\CloudMusic\\bgm.mp3\ ", NULL, 0, NULL);
-    // mciSendString("play bgm repeat",NULL,0,NULL);音频播放失败
+
+    PlaySound("d:\\bgm.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);//启动循环背景音乐（异步 + 循环）
 
     initGame();
 
@@ -131,9 +132,13 @@ int main(){
     // //卡屏
     // getchar();
 
+    //停止音乐（可选，程序退出时自动停止）
+    PlaySound(NULL, NULL, 0);  // 停止所有声音
+
     //关闭界面(有While可以取消卡屏)
     closegraph();
     return 0;
+    
 }
 
 /*
