@@ -170,4 +170,37 @@
     
 // }
 
+
+
+//独立输出
 //1.绘制窗口并加载图片；2.绘制棋盘输出玩家信息；3.获取鼠标信息，排除边界绘制棋子；4.判定胜负，bug优化；5.背景音乐播放
+//     settextcolor文字颜色     outtextxy文字框     setbkmode文字框背景颜色     
+     
+#include <graphics.h>
+#include <stdio.h>
+#include <windows.h>
+
+void initgame(){
+    //初始化
+    initgraph(600,500,SHOWCONSOLE);
+    //加载图片
+    loadimage(NULL,"C:/Users/Gaius Julius Caesar/Downloads/bk.jpg");
+    setlinecolor(BLACK);//线条颜色
+    for(int i=0;i<20;i++){
+        line(0,25*i,500,25*i);//横线
+        line(25*i,0,25*i,500);//竖线
+    }
+    setlinestyle(PS_SOLID,3);//线条风格调整
+    line(500,0,500,500);//最后一条竖线
+
+    //文字框
+    setbkmode(0);//文字框背景透明
+    settextcolor(BLACK);//文字颜色
+    outtextxy(520,20,"P1:Black");
+    outtextxy(520,40,"P2:White");
+}
+int main(){
+    initgame();
+    //卡屏
+    getchar();
+}
