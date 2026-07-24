@@ -179,7 +179,8 @@
 #include <graphics.h>
 #include <stdio.h>
 #include <windows.h>
-
+int chessx=0,chessy=0;
+int flag=0;
 void initgame(){
     //初始化
     initgraph(600,500,SHOWCONSOLE);
@@ -201,6 +202,31 @@ void initgame(){
 }
 int main(){
     initgame();
-    //卡屏
-    getchar();
+    MOUSEMSG msg;
+    while(1){
+        msg=GetMouseMsg();//获取鼠标信息（关键一步，否则获取不到信息，且必须放在循环内部）
+        HWND hwnd=GetHWnd();//获取窗口句柄
+        chessx=(msg.x+12.5)/25;
+        chessy=(msg.y+12.5)/25;
+        printf("x:%d  y:%d\n",chessx,chessy);
+        if (msg.uMsg==WM_LBUTTONDOWN){
+            if(chessx==0||chessy==0||chessy==20||chessx>=20){
+                MessageBox(hwnd,"Error Station","Chess",MB_OK); 
+            }
+            else{
+                if(flag%2==0){
+                setfillcolor(BLACK);
+                solidcircle(chessx*25,chessy*25,8);
+                flag++;
+            }
+                else if(flag%2==1){
+                setfillcolor(WHITE);
+                solidcircle(chessx*25,chessy*25,8);
+                flag++;
+            } 
+            }
+         }}
+
+    // //卡屏
+    // getchar();
 }
