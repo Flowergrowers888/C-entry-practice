@@ -181,6 +181,42 @@
 #include <windows.h>
 int chessx=0,chessy=0;
 int flag=0;
+int map[30][30]={0};//记录棋子信息
+
+int judge(int chessx,int chessy){
+    for(int i=1;i<=15;i++){//横线
+        if(map[i][chessy]==1&&map[i+1][chessy]==1&&map[i+2][chessy]==1&&map[i+3][chessy]==1&&map[i+4][chessy]==1){
+            return 1;
+        }
+        else if(map[i][chessy]==2&&map[i+1][chessy]==2&&map[i+2][chessy]==2&&map[i+3][chessy]==2&&map[i+4][chessy]==2){
+            return 2;
+        }
+    }
+    for(int j=1;j<=15;j++){//竖线
+        if(map[chessx][j]==1&&map[chessx][j+1]==1&&map[chessx][j+2]==1&&map[chessx][j+3]==1&&map[chessx][j+4]==1){
+            return 1;
+        }
+        else if(map[chessx][j]==2&&map[chessx][j+1]==2&&map[chessx][j+2]==2&&map[chessx][j+3]==2&&map[chessx][j+4]==2){
+            return 2;
+        }
+    }
+    for(int i=1,j=1;i<=15,j<=15;i++,j++){//左右
+        if(map[i][j]==1&&map[i+1][j+1]==1&&map[i+2][j+2]==1&&map[i+3][j+3]==1&&map[i+4][j+4]==1){
+            return 1;
+        }
+        else if(map[i][j]==2&&map[i+1][j+1]==2&&map[i+2][j+2]==2&&map[i+3][j+3]==2&&map[i+4][j+4]==2){
+            return 2;
+        }
+    }
+    for(int i=1,j=19;i<=15,j>=5;i++,j--){//右左
+        if(map[i][j]==1&&map[i+1][j-1]==1&&map[i+2][j-2]==1&&map[i+3][j-3]==1&&map[i+4][j-4]==1){
+            return 1;
+        }
+        else if(map[i][j]==2&&map[i+1][j-1]==2&&map[i+2][j-2]==2&&map[i+3][j-3]==2&&map[i+4][j-4]==2){
+            return 2;
+        }
+    }
+}
 void initgame(){
     //初始化
     initgraph(600,500,SHOWCONSOLE);
@@ -200,9 +236,9 @@ void initgame(){
     outtextxy(520,20,"P1:Black");
     outtextxy(520,40,"P2:White");
 }
-int main(){
-    initgame();
-    MOUSEMSG msg;
+
+void playgame(){
+    MOUSEMSG msg; 
     while(1){
         msg=GetMouseMsg();//获取鼠标信息（关键一步，否则获取不到信息，且必须放在循环内部）
         HWND hwnd=GetHWnd();//获取窗口句柄
@@ -218,15 +254,26 @@ int main(){
                 setfillcolor(BLACK);
                 solidcircle(chessx*25,chessy*25,8);
                 flag++;
+                map[chessx][chessy]=1;
             }
                 else if(flag%2==1){
                 setfillcolor(WHITE);
                 solidcircle(chessx*25,chessy*25,8);
                 flag++;
-            } 
+                map[chessx][chessy]=2;
             }
-         }}
-
+            if(judge(chessx,chessy)==1){
+                MessageBox(hwnd,"P1:Black win","chess",MB_OK);
+            }
+            else if(judge(chessx,chessy)==2){
+                MessageBox(hwnd,"P2:White win","chess",MB_OK);
+            }
+        }}
+        }
+}
+int main(){
+    initgame(); 
+    playgame();
     // //卡屏
     // getchar();
 }
