@@ -184,7 +184,7 @@ int flag=0;
 int map[30][30]={0};//记录棋子信息
 
 int judge(int chessx,int chessy){
-    for(int i=1;i<=15;i++){//横线
+    for(int i=1;i<=15;i++){//横线(要知道不用遍历那么多次，只要五次即可，chessx-4~chessx后面判定还有五个点的判断)
         if(map[i][chessy]==1&&map[i+1][chessy]==1&&map[i+2][chessy]==1&&map[i+3][chessy]==1&&map[i+4][chessy]==1){
             return 1;
         }
@@ -194,28 +194,36 @@ int judge(int chessx,int chessy){
     }
     for(int j=1;j<=15;j++){//竖线
         if(map[chessx][j]==1&&map[chessx][j+1]==1&&map[chessx][j+2]==1&&map[chessx][j+3]==1&&map[chessx][j+4]==1){
+            
+            //printf("111");
             return 1;
         }
         else if(map[chessx][j]==2&&map[chessx][j+1]==2&&map[chessx][j+2]==2&&map[chessx][j+3]==2&&map[chessx][j+4]==2){
+            //printf("222");
             return 2;
         }
     }
-    for(int i=1,j=1;i<=15,j<=15;i++,j++){//左右
+    for(int i=chessx-4,j=chessy-4;i<=chessx,j<=chessy;i++,j++){//左右由上至下
         if(map[i][j]==1&&map[i+1][j+1]==1&&map[i+2][j+2]==1&&map[i+3][j+3]==1&&map[i+4][j+4]==1){
+            //printf("333");
             return 1;
         }
         else if(map[i][j]==2&&map[i+1][j+1]==2&&map[i+2][j+2]==2&&map[i+3][j+3]==2&&map[i+4][j+4]==2){
+            //printf("444");
             return 2;
         }
     }
-    for(int i=1,j=19;i<=15,j>=5;i++,j--){//右左
+    for(int i=chessx-4,j=chessy+4;i<=chessx,j>=chessy;i++,j--){//左右由下至上(最终落点一定是chessx,chessy)
         if(map[i][j]==1&&map[i+1][j-1]==1&&map[i+2][j-2]==1&&map[i+3][j-3]==1&&map[i+4][j-4]==1){
+           //printf("555");
             return 1;
         }
         else if(map[i][j]==2&&map[i+1][j-1]==2&&map[i+2][j-2]==2&&map[i+3][j-3]==2&&map[i+4][j-4]==2){
+            //printf("666");
             return 2;
         }
-    }
+    }//printf("777");
+    return 0;
 }
 void initgame(){
     //初始化
@@ -248,6 +256,7 @@ void playgame(){
         if (msg.uMsg==WM_LBUTTONDOWN){
             if(chessx==0||chessy==0||chessy==20||chessx>=20){
                 MessageBox(hwnd,"Error Station","Chess",MB_OK); 
+                continue;
             }
             else{
                 if(flag%2==0){
@@ -264,16 +273,20 @@ void playgame(){
             }
             if(judge(chessx,chessy)==1){
                 MessageBox(hwnd,"P1:Black win","chess",MB_OK);
+                break;
             }
             else if(judge(chessx,chessy)==2){
                 MessageBox(hwnd,"P2:White win","chess",MB_OK);
+                break;
             }
         }}
         }
 }
 int main(){
+    PlaySound("d:\\bgm.wav",NULL,SND_FILENAME | SND_ASYNC | SND_LOOP);//启动循环背景音乐（异步 + 循环）
     initgame(); 
     playgame();
+    closegraph();
     // //卡屏
     // getchar();
 }
