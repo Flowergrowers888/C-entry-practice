@@ -176,117 +176,117 @@
 //1.绘制窗口并加载图片；2.绘制棋盘输出玩家信息；3.获取鼠标信息，排除边界绘制棋子；4.判定胜负，bug优化；5.背景音乐播放
 //     settextcolor文字颜色     outtextxy文字框     setbkmode文字框背景颜色     
      
-#include <graphics.h>
-#include <stdio.h>
-#include <windows.h>
-int chessx=0,chessy=0;
-int flag=0;
-int map[30][30]={0};//记录棋子信息
+// #include <graphics.h>
+// #include <stdio.h>
+// #include <windows.h>
+// int chessx=0,chessy=0;
+// int flag=0;
+// int map[30][30]={0};//记录棋子信息
 
-int judge(int chessx,int chessy){
-    for(int i=1;i<=15;i++){//横线(要知道不用遍历那么多次，只要五次即可，chessx-4~chessx后面判定还有五个点的判断)
-        if(map[i][chessy]==1&&map[i+1][chessy]==1&&map[i+2][chessy]==1&&map[i+3][chessy]==1&&map[i+4][chessy]==1){
-            return 1;
-        }
-        else if(map[i][chessy]==2&&map[i+1][chessy]==2&&map[i+2][chessy]==2&&map[i+3][chessy]==2&&map[i+4][chessy]==2){
-            return 2;
-        }
-    }
-    for(int j=1;j<=15;j++){//竖线
-        if(map[chessx][j]==1&&map[chessx][j+1]==1&&map[chessx][j+2]==1&&map[chessx][j+3]==1&&map[chessx][j+4]==1){
+// int judge(int chessx,int chessy){
+//     for(int i=1;i<=15;i++){//横线(要知道不用遍历那么多次，只要五次即可，chessx-4~chessx后面判定还有五个点的判断)
+//         if(map[i][chessy]==1&&map[i+1][chessy]==1&&map[i+2][chessy]==1&&map[i+3][chessy]==1&&map[i+4][chessy]==1){
+//             return 1;
+//         }
+//         else if(map[i][chessy]==2&&map[i+1][chessy]==2&&map[i+2][chessy]==2&&map[i+3][chessy]==2&&map[i+4][chessy]==2){
+//             return 2;
+//         }
+//     }
+//     for(int j=1;j<=15;j++){//竖线
+//         if(map[chessx][j]==1&&map[chessx][j+1]==1&&map[chessx][j+2]==1&&map[chessx][j+3]==1&&map[chessx][j+4]==1){
             
-            //printf("111");
-            return 1;
-        }
-        else if(map[chessx][j]==2&&map[chessx][j+1]==2&&map[chessx][j+2]==2&&map[chessx][j+3]==2&&map[chessx][j+4]==2){
-            //printf("222");
-            return 2;
-        }
-    }
-    for(int i=chessx-4,j=chessy-4;i<=chessx,j<=chessy;i++,j++){//左右由上至下
-        if(map[i][j]==1&&map[i+1][j+1]==1&&map[i+2][j+2]==1&&map[i+3][j+3]==1&&map[i+4][j+4]==1){
-            //printf("333");
-            return 1;
-        }
-        else if(map[i][j]==2&&map[i+1][j+1]==2&&map[i+2][j+2]==2&&map[i+3][j+3]==2&&map[i+4][j+4]==2){
-            //printf("444");
-            return 2;
-        }
-    }
-    for(int i=chessx-4,j=chessy+4;i<=chessx,j>=chessy;i++,j--){//左右由下至上(最终落点一定是chessx,chessy)
-        if(map[i][j]==1&&map[i+1][j-1]==1&&map[i+2][j-2]==1&&map[i+3][j-3]==1&&map[i+4][j-4]==1){
-           //printf("555");
-            return 1;
-        }
-        else if(map[i][j]==2&&map[i+1][j-1]==2&&map[i+2][j-2]==2&&map[i+3][j-3]==2&&map[i+4][j-4]==2){
-            //printf("666");
-            return 2;
-        }
-    }//printf("777");
-    return 0;
-}
-void initgame(){
-    //初始化
-    initgraph(600,500,SHOWCONSOLE);
-    //加载图片
-    loadimage(NULL,"C:/Users/Gaius Julius Caesar/Downloads/bk.jpg");
-    setlinecolor(BLACK);//线条颜色
-    for(int i=0;i<20;i++){
-        line(0,25*i,500,25*i);//横线
-        line(25*i,0,25*i,500);//竖线
-    }
-    setlinestyle(PS_SOLID,3);//线条风格调整
-    line(500,0,500,500);//最后一条竖线
+//             //printf("111");
+//             return 1;
+//         }
+//         else if(map[chessx][j]==2&&map[chessx][j+1]==2&&map[chessx][j+2]==2&&map[chessx][j+3]==2&&map[chessx][j+4]==2){
+//             //printf("222");
+//             return 2;
+//         }
+//     }
+//     for(int i=chessx-4,j=chessy-4;i<=chessx,j<=chessy;i++,j++){//左右由上至下
+//         if(map[i][j]==1&&map[i+1][j+1]==1&&map[i+2][j+2]==1&&map[i+3][j+3]==1&&map[i+4][j+4]==1){
+//             //printf("333");
+//             return 1;
+//         }
+//         else if(map[i][j]==2&&map[i+1][j+1]==2&&map[i+2][j+2]==2&&map[i+3][j+3]==2&&map[i+4][j+4]==2){
+//             //printf("444");
+//             return 2;
+//         }
+//     }
+//     for(int i=chessx-4,j=chessy+4;i<=chessx,j>=chessy;i++,j--){//左右由下至上(最终落点一定是chessx,chessy)
+//         if(map[i][j]==1&&map[i+1][j-1]==1&&map[i+2][j-2]==1&&map[i+3][j-3]==1&&map[i+4][j-4]==1){
+//            //printf("555");
+//             return 1;
+//         }
+//         else if(map[i][j]==2&&map[i+1][j-1]==2&&map[i+2][j-2]==2&&map[i+3][j-3]==2&&map[i+4][j-4]==2){
+//             //printf("666");
+//             return 2;
+//         }
+//     }//printf("777");
+//     return 0;
+// }
+// void initgame(){
+//     //初始化
+//     initgraph(600,500,SHOWCONSOLE);
+//     //加载图片
+//     loadimage(NULL,"C:/Users/Gaius Julius Caesar/Downloads/bk.jpg");
+//     setlinecolor(BLACK);//线条颜色
+//     for(int i=0;i<20;i++){
+//         line(0,25*i,500,25*i);//横线
+//         line(25*i,0,25*i,500);//竖线
+//     }
+//     setlinestyle(PS_SOLID,3);//线条风格调整
+//     line(500,0,500,500);//最后一条竖线
 
-    //文字框
-    setbkmode(0);//文字框背景透明
-    settextcolor(BLACK);//文字颜色
-    outtextxy(520,20,"P1:Black");
-    outtextxy(520,40,"P2:White");
-}
+//     //文字框
+//     setbkmode(0);//文字框背景透明
+//     settextcolor(BLACK);//文字颜色
+//     outtextxy(520,20,"P1:Black");
+//     outtextxy(520,40,"P2:White");
+// }
 
-void playgame(){
-    MOUSEMSG msg; 
-    while(1){
-        msg=GetMouseMsg();//获取鼠标信息（关键一步，否则获取不到信息，且必须放在循环内部）
-        HWND hwnd=GetHWnd();//获取窗口句柄
-        chessx=(msg.x+12.5)/25;
-        chessy=(msg.y+12.5)/25;
-        printf("x:%d  y:%d\n",chessx,chessy);
-        if (msg.uMsg==WM_LBUTTONDOWN){
-            if(chessx==0||chessy==0||chessy==20||chessx>=20){
-                MessageBox(hwnd,"Error Station","Chess",MB_OK); 
-                continue;
-            }
-            else{
-                if(flag%2==0){
-                setfillcolor(BLACK);
-                solidcircle(chessx*25,chessy*25,8);
-                flag++;
-                map[chessx][chessy]=1;
-            }
-                else if(flag%2==1){
-                setfillcolor(WHITE);
-                solidcircle(chessx*25,chessy*25,8);
-                flag++;
-                map[chessx][chessy]=2;
-            }
-            if(judge(chessx,chessy)==1){
-                MessageBox(hwnd,"P1:Black win","chess",MB_OK);
-                break;
-            }
-            else if(judge(chessx,chessy)==2){
-                MessageBox(hwnd,"P2:White win","chess",MB_OK);
-                break;
-            }
-        }}
-        }
-}
-int main(){
-    PlaySound("d:\\bgm.wav",NULL,SND_FILENAME | SND_ASYNC | SND_LOOP);//启动循环背景音乐（异步 + 循环）
-    initgame(); 
-    playgame();
-    closegraph();
-    // //卡屏
-    // getchar();
-}
+// void playgame(){
+//     MOUSEMSG msg; 
+//     while(1){
+//         msg=GetMouseMsg();//获取鼠标信息（关键一步，否则获取不到信息，且必须放在循环内部）
+//         HWND hwnd=GetHWnd();//获取窗口句柄
+//         chessx=(msg.x+12.5)/25;
+//         chessy=(msg.y+12.5)/25;
+//         printf("x:%d  y:%d\n",chessx,chessy);
+//         if (msg.uMsg==WM_LBUTTONDOWN){
+//             if(chessx==0||chessy==0||chessy==20||chessx>=20){
+//                 MessageBox(hwnd,"Error Station","Chess",MB_OK); 
+//                 continue;
+//             }
+//             else{
+//                 if(flag%2==0){
+//                 setfillcolor(BLACK);
+//                 solidcircle(chessx*25,chessy*25,8);
+//                 flag++;
+//                 map[chessx][chessy]=1;
+//             }
+//                 else if(flag%2==1){
+//                 setfillcolor(WHITE);
+//                 solidcircle(chessx*25,chessy*25,8);
+//                 flag++;
+//                 map[chessx][chessy]=2;
+//             }
+//             if(judge(chessx,chessy)==1){
+//                 MessageBox(hwnd,"P1:Black win","chess",MB_OK);
+//                 break;
+//             }
+//             else if(judge(chessx,chessy)==2){
+//                 MessageBox(hwnd,"P2:White win","chess",MB_OK);
+//                 break;
+//             }
+//         }}
+//         }
+// }
+// int main(){
+//     PlaySound("d:\\bgm.wav",NULL,SND_FILENAME | SND_ASYNC | SND_LOOP);//启动循环背景音乐（异步 + 循环）
+//     initgame(); 
+//     playgame();
+//     closegraph();
+//     // //卡屏
+//     // getchar();
+// }
