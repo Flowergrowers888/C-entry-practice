@@ -1,3 +1,4 @@
+/*源码
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -277,4 +278,22 @@ void calculate()
 	fwrite(goods,sizeof(struct item),NUM,fp);
 	fclose(fp);
 }
+*/
 
+
+//跟练
+#include <stdio.h>
+int main(){
+	printf("************************************\n");
+	printf("\t欢迎进入超市管理系统\n");
+	printf("************************************\n");
+	printf("请选择数字进行操作：\n");
+	printf("1.建立库存信息\n");
+	printf("2.显示库存信息\n");
+	printf("3.购物车\n");
+	printf("4.结算\n");
+	printf("5.退出\n");
+	printf("请选择数字1~5\n");
+
+	return 0;
+}
