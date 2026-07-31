@@ -284,6 +284,7 @@ void calculate()
 //跟练
 #include <stdio.h>
 int main(){
+	int select;
 	printf("************************************\n");
 	printf("\t欢迎进入超市管理系统\n");
 	printf("************************************\n");
@@ -294,6 +295,6 @@ int main(){
 	printf("4.结算\n");
 	printf("5.退出\n");
 	printf("请选择数字1~5\n");
-
+	scanf("%d",&select);//键盘获取输入
 	return 0;
 }
