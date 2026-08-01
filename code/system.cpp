@@ -295,6 +295,15 @@ int main(){
 	printf("4.结算\n");
 	printf("5.退出\n");
 	printf("请选择数字1~5\n");
-	scanf("%d",&select);//键盘获取输入
+	scanf("%d",&select);//键盘获取输入存入变量
+
+	switch (select){
+
+		case 1:	("1.建立库存信息\n");break;
+		case 2:	("2.显示库存信息\n");break;
+		case 3:	("3.购物车\n");break;
+		case 4:	("4.结算\n");break;
+		case 5:	("5.退出\n");break;
+	}
 	return 0;
 }
