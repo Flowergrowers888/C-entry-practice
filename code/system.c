@@ -283,8 +283,24 @@ void calculate()
 
 //跟练
 #include <stdio.h>
-int main(){
+
+//开始菜单
+int menu(){
 	int select;
+	while (1)
+	{
+		scanf("%d",&select);//键盘获取输入存入变量
+		if(select<1||select>5){
+			printf("输入错误，重新输入\n");
+		}
+		else{
+			break;
+		}
+	}
+	return select;
+}
+int main(){
+	
 	printf("************************************\n");
 	printf("\t欢迎进入超市管理系统\n");
 	printf("************************************\n");
@@ -295,15 +311,15 @@ int main(){
 	printf("4.结算\n");
 	printf("5.退出\n");
 	printf("请选择数字1~5\n");
-	scanf("%d",&select);//键盘获取输入存入变量
+	while(1){
+		switch (menu()){
 
-	switch (select){
-
-		case 1:	("1.建立库存信息\n");break;
-		case 2:	("2.显示库存信息\n");break;
-		case 3:	("3.购物车\n");break;
-		case 4:	("4.结算\n");break;
-		case 5:	("5.退出\n");break;
+		case 1:	printf("1.建立库存信息\n");break;
+		case 2:	printf("2.显示库存信息\n");break;
+		case 3:	printf("3.购物车\n");break;
+		case 4:	printf("4.结算\n");break;
+		case 5:	printf("5.退出\n");break;
+	}
 	}
 	return 0;
 }
