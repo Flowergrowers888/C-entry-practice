@@ -283,6 +283,72 @@ void calculate()
 
 //跟练
 #include <stdio.h>
+#define NUM 5
+//			商品名字	编号	进售价	数量
+//对应类型： 字符串		字符串	 double	int
+struct item{
+	char brand[20];//商品名字
+	char id[10];//商品编号
+	float in_price;//进价
+	float out_price;//售价
+	int storage;//数量
+};
+
+struct item goods[NUM];//该数组可存储5条商品信息
+//打印输出目录
+void content(){
+	printf("************************************\n");
+	printf("\t欢迎进入超市管理系统\n");
+	printf("************************************\n");
+	printf("请选择数字进行操作：\n");
+	printf("1.建立库存信息\n");
+	printf("2.显示库存信息\n");
+	printf("3.购物车\n");
+	printf("4.结算\n");
+	printf("5.退出\n");
+	printf("请选择数字1~5\n");
+}
+
+//建立库存信息
+void establish(){
+			FILE *fp;//创建指向文件的指针
+			printf("请依次输入货物信息：\n");
+			printf("----------------------------------\n");
+			
+			//初始化商品信息存入goods数组
+			for(int i=0;i<NUM;i++){
+				printf("品名:");
+				fflush(stdin);//清空缓冲区
+				scanf("%s",&goods[i].brand);
+
+				printf("货号:");
+				fflush(stdin);//清空缓冲区
+				scanf("%s",&goods[i].id);
+
+				printf("进价:");
+				fflush(stdin);//清空缓冲区
+				scanf("%f",&goods[i].in_price);
+
+				printf("售价:");
+				fflush(stdin);//清空缓冲区
+				scanf("%f",&goods[i].out_price);
+
+				printf("数量:");
+				fflush(stdin);//清空缓冲区
+				scanf("%d",&goods[i].storage);
+				printf("\n");
+			}
+			//判断文件是否能够创建
+			if((fp=fopen("goods","w"))==NULL){
+				printf("创建文件失败\n");
+				return 0;
+			}
+			//把goods数组内容写入文件
+			fwrite(goods,sizeof(struct item),NUM,fp);
+
+			//关闭文件
+			fclose(fp);
+}
 
 //开始菜单
 int menu(){
@@ -300,21 +366,12 @@ int menu(){
 	return select;
 }
 int main(){
-	
-	printf("************************************\n");
-	printf("\t欢迎进入超市管理系统\n");
-	printf("************************************\n");
-	printf("请选择数字进行操作：\n");
-	printf("1.建立库存信息\n");
-	printf("2.显示库存信息\n");
-	printf("3.购物车\n");
-	printf("4.结算\n");
-	printf("5.退出\n");
-	printf("请选择数字1~5\n");
+	content();
 	while(1){
 		switch (menu()){
-
-		case 1:	printf("1.建立库存信息\n");break;
+		case 1:	//printf("1.建立库存信息\n");
+			establish();
+		break;
 		case 2:	printf("2.显示库存信息\n");break;
 		case 3:	printf("3.购物车\n");break;
 		case 4:	printf("4.结算\n");break;
