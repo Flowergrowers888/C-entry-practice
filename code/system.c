@@ -372,7 +372,19 @@ int main(){
 		case 1:	//printf("1.建立库存信息\n");
 			establish();
 		break;
-		case 2:	printf("2.显示库存信息\n");break;
+		case 2:	//printf("2.显示库存信息\n");
+		{
+			FILE*fp;//指向文件的指针
+			fp=fopen("goods","r");
+			for(int i=0;(fread(goods+i,sizeof(struct item),1,fp))!=0;i++){
+				printf("---------------------------\n");
+				printf("%s%s%f%d\n",goods[i].id,goods[i].brand,
+					goods[i].in_price,goods[i].out_price,goods[i].storage);
+			}
+			fclose(fp);
+		}
+		
+		break;
 		case 3:	printf("3.购物车\n");break;
 		case 4:	printf("4.结算\n");break;
 		case 5:	printf("5.退出\n");break;
