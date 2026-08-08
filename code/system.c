@@ -300,6 +300,8 @@ void content(){
 	printf("************************************\n");
 	printf("\t欢迎进入超市管理系统\n");
 	printf("************************************\n");
+}
+void content2(){
 	printf("请选择数字进行操作：\n");
 	printf("1.建立库存信息\n");
 	printf("2.显示库存信息\n");
@@ -349,10 +351,22 @@ void establish(){
 			//关闭文件
 			fclose(fp);
 }
-
+//显示所有信息
+void dis_all(){
+	FILE*fp;//指向文件的指针
+	fp=fopen("goods","r");
+	for(int i=0;(fread(goods+i,sizeof(struct item),1,fp))!=0;i++){
+		printf("---------------------------\n");
+		printf("编号\t品名\t单价\t库存数量\n");
+		printf("%3s%9s%9.2f%9d\n",goods[i].id,goods[i].brand,
+			goods[i].in_price,goods[i].out_price,goods[i].storage);
+	}
+	fclose(fp);
+}
 //开始菜单
 int menu(){
 	int select;
+	content2();
 	while (1)
 	{
 		scanf("%d",&select);//键盘获取输入存入变量
@@ -372,18 +386,8 @@ int main(){
 		case 1:	//printf("1.建立库存信息\n");
 			establish();
 		break;
-		case 2:	//printf("2.显示库存信息\n");
-		{
-			FILE*fp;//指向文件的指针
-			fp=fopen("goods","r");
-			for(int i=0;(fread(goods+i,sizeof(struct item),1,fp))!=0;i++){
-				printf("---------------------------\n");
-				printf("%s%s%f%d\n",goods[i].id,goods[i].brand,
-					goods[i].in_price,goods[i].out_price,goods[i].storage);
-			}
-			fclose(fp);
-		}
-		
+		case 2:	//printf("2.显示库存信息\n");	
+		dis_all();
 		break;
 		case 3:	printf("3.购物车\n");break;
 		case 4:	printf("4.结算\n");break;
