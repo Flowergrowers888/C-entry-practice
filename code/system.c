@@ -353,15 +353,37 @@ void establish(){
 }
 //显示所有信息
 void dis_all(){
+
+	//清空前面显示的内容
+	system("cls");
+
 	FILE*fp;//指向文件的指针
 	fp=fopen("goods","r");
 	for(int i=0;(fread(goods+i,sizeof(struct item),1,fp))!=0;i++){
 		printf("---------------------------\n");
 		printf("编号\t品名\t单价\t库存数量\n");
-		printf("%3s%9s%9.2f%9d\n",goods[i].id,goods[i].brand,
+		printf("%3s%9s%9.2f%9d%d\n",goods[i].id,goods[i].brand,
 			goods[i].in_price,goods[i].out_price,goods[i].storage);
 	}
 	fclose(fp);
+}
+//购物车
+void shop_cart(){
+	//清空前面显示的内容
+	system("cls");
+	while(1){
+		switch(cart_menu()){
+		case 1:
+			printf("1.显示当前购物列表\n");
+			break;
+		case 2:
+			printf("2.添加商品\n");
+			break;
+		case 3:
+			return;//退出
+			break;			
+		}
+	}
 }
 //开始菜单
 int menu(){
@@ -379,19 +401,45 @@ int menu(){
 	}
 	return select;
 }
+//购物车菜单
+int cart_menu(){
+	int select;//获取选择
+	printf("请选择数字进行操作：\n");
+	printf("----------------------------------\n");
+	printf("1.显示当前购物列表\n");
+	printf("2.添加商品\n");
+	printf("3.退出\n");
+	printf("----------------------------------\n");
+	while (1)
+	{
+		scanf("%d",&select);//键盘获取输入存入变量
+		if(select<1||select>3){
+			printf("输入错误，重新输入\n");
+		}
+		else{
+			break;
+		}
+	}
+	return select;
+}
 int main(){
 	content();
 	while(1){
 		switch (menu()){
 		case 1:	//printf("1.建立库存信息\n");
 			establish();
-		break;
+			break;
 		case 2:	//printf("2.显示库存信息\n");	
-		dis_all();
-		break;
-		case 3:	printf("3.购物车\n");break;
+			dis_all();
+			break;
+		case 3:	//printf("3.购物车\n");
+			shop_cart();
+			break;
 		case 4:	printf("4.结算\n");break;
-		case 5:	printf("5.退出\n");break;
+		case 5:	//printf("5.退出\n");
+			printf("感谢使用，再见！\n");
+			exit(0);//退出程序
+			break;
 	}
 	}
 	return 0;
