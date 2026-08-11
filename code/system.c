@@ -283,6 +283,7 @@ void calculate()
 
 //跟练
 #include <stdio.h>
+#include <string.h>
 #define NUM 5
 //			商品名字	编号	进售价	数量
 //对应类型： 字符串		字符串	 double	int
@@ -367,6 +368,48 @@ void dis_all(){
 	}
 	fclose(fp);
 }
+//添加商品
+void add(){
+	FILE*fp;
+	char str[20];//获取物品名字 编号的字符串
+	int n;
+	char choice;
+	do{
+		printf("输入物品的名称或编号：\n");
+		fflush(stdin);
+		gets(str);
+		if((fp=fopen("goods","r"))==NULL){
+			printf("打开文件失败");
+			continue
+		}
+		for(int i=0;fread(goods+i,sizeof(struct(item)),1,fp)!=0;i++){
+			//编号 ，名称能对上并且库存不能等于0
+			if((strcmp(goods[i].brand,str)==0||strcmp(goods[i].id,str)==0)&&goods[i].storage!=0){
+				printf("已找到物品：\n");
+				printf("---------------------------\n");
+			printf("编号\t品名\t单价\t库存数量\n");
+			printf("%3s%9s%9.2f%9d%d\n",goods[i].id,goods[i].brand,
+				goods[i].in_price,goods[i].out_price,goods[i].storage);
+				printf("请输入所需数量：\n");
+				scanf("%d",&n);
+				if(n>goods[i].storage){
+					//如果所需数量大于库存
+					printf("库存不足：\b");
+					break;
+				}
+				printf("是否购买？(Y/N)\n");
+				fflush(stdin);
+				scanf("%c",&choice);
+				if (choice=="Y"||choice=="y")
+				{
+					/* code */
+				}
+				
+			}
+		}
+	}while(1);
+}
+
 //购物车
 void shop_cart(){
 	//清空前面显示的内容
