@@ -294,8 +294,16 @@ struct item{
 	float out_price;//售价
 	int storage;//数量
 };
+//购物车类型
+struct item_node
+{
+	struct item wanted;//商品
+	int amount;//购物数量
+	struct item_node*next;
+};
 
 struct item goods[NUM];//该数组可存储5条商品信息
+struct item_node*cart;
 //打印输出目录
 void content(){
 	printf("************************************\n");
@@ -373,16 +381,18 @@ void add(){
 	FILE*fp;
 	char str[20];//获取物品名字 编号的字符串
 	int n;
-	char choice;
+	int i;
+	char choice,choice2;
+	struct item_node *p,*p1;
 	do{
 		printf("输入物品的名称或编号：\n");
 		fflush(stdin);
 		gets(str);
 		if((fp=fopen("goods","r"))==NULL){
 			printf("打开文件失败");
-			continue
+			continue;
 		}
-		for(int i=0;fread(goods+i,sizeof(struct(item)),1,fp)!=0;i++){
+		for(i=0;fread(goods+i,sizeof(struct item),1,fp)!=0;i++){
 			//编号 ，名称能对上并且库存不能等于0
 			if((strcmp(goods[i].brand,str)==0||strcmp(goods[i].id,str)==0)&&goods[i].storage!=0){
 				printf("已找到物品：\n");
@@ -402,12 +412,35 @@ void add(){
 				scanf("%c",&choice);
 				if (choice=="Y"||choice=="y")
 				{
-					/* code */
+					//开辟内存
+					p1=(struct item_node*)malloc(sizeof(struct item_node));
+					if(p1==NULL){
+						printf("内存申请失败!\n");
+						exit(1);
+					}
+					p1->amount=n;//存入需要购物的商品数量
+					p1->wanted=goods[i];
+					p1->next=NULL;
+					p=cart;
+					if(cart==NULL)cart=p1;
+					else{
+						while(p->next!=NULL)
+						p=p->next;
+						p1->next=p->next;
+						p->next=p1;
+					}
 				}
-				
+				break;
 			}
 		}
-	}while(1);
+		if(i==NUM){
+			printf("未找到所需物品！\n");
+		}
+		fclose(fp);//关闭文件
+		printf("是否继续购物！(Y/N)\n");
+		fflush(stdin);
+		scanf("%c",&choice2);
+	}while(choice2=="Y"||choice2=="y");//此条件成立则继续购物
 }
 
 //购物车
@@ -420,7 +453,8 @@ void shop_cart(){
 			printf("1.显示当前购物列表\n");
 			break;
 		case 2:
-			printf("2.添加商品\n");
+			//printf("2.添加商品\n");
+			add();
 			break;
 		case 3:
 			return;//退出
