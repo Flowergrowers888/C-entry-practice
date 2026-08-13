@@ -371,8 +371,8 @@ void dis_all(){
 	for(int i=0;(fread(goods+i,sizeof(struct item),1,fp))!=0;i++){
 		printf("---------------------------\n");
 		printf("编号\t品名\t单价\t库存数量\n");
-		printf("%3s%9s%9.2f%9d%d\n",goods[i].id,goods[i].brand,
-			goods[i].in_price,goods[i].out_price,goods[i].storage);
+		printf("%3s%9s%9.2f%9d\n",goods[i].id,goods[i].brand,
+			goods[i].out_price,goods[i].storage);
 	}
 	fclose(fp);
 }
@@ -442,7 +442,22 @@ void add(){
 		scanf("%c",&choice2);
 	}while(choice2=="Y"||choice2=="y");//此条件成立则继续购物
 }
-
+//显示购物列表
+void display(){
+	struct  item_node*p=cart;
+	if(p==NULL){
+		printf("购物车为空！\n");
+		return;
+	}
+	while(p!=NULL){
+		printf("---------------------------\n");
+		printf("编号\t品名\t单价\t数量\n");
+		printf("%3s%9s%9.2f%9d\n",p->wanted.id,p->wanted.brand,p->wanted.out_price,
+		p->amount);
+		p=p->next;//跳转下一节点
+	}
+	
+}
 //购物车
 void shop_cart(){
 	//清空前面显示的内容
@@ -450,7 +465,8 @@ void shop_cart(){
 	while(1){
 		switch(cart_menu()){
 		case 1:
-			printf("1.显示当前购物列表\n");
+			//printf("1.显示当前购物列表\n");
+			display();
 			break;
 		case 2:
 			//printf("2.添加商品\n");
