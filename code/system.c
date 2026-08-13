@@ -387,6 +387,7 @@ void add(){
 	do{
 		printf("输入物品的名称或编号：\n");
 		fflush(stdin);
+		//scanf("%s",str);
 		gets(str);
 		if((fp=fopen("goods","r"))==NULL){
 			printf("打开文件失败");
@@ -397,8 +398,8 @@ void add(){
 			if((strcmp(goods[i].brand,str)==0||strcmp(goods[i].id,str)==0)&&goods[i].storage!=0){
 				printf("已找到物品：\n");
 				printf("---------------------------\n");
-			printf("编号\t品名\t单价\t库存数量\n");
-			printf("%3s%9s%9.2f%9d%d\n",goods[i].id,goods[i].brand,
+				printf("编号\t品名\t单价\t库存数量\n");
+				printf("%3s%9s%9.2f%9d%d\n",goods[i].id,goods[i].brand,
 				goods[i].in_price,goods[i].out_price,goods[i].storage);
 				printf("请输入所需数量：\n");
 				scanf("%d",&n);
@@ -409,6 +410,7 @@ void add(){
 				}
 				printf("是否购买？(Y/N)\n");
 				fflush(stdin);
+				choice=getchar();
 				scanf("%c",&choice);
 				if (choice=="Y"||choice=="y")
 				{
@@ -439,7 +441,7 @@ void add(){
 		fclose(fp);//关闭文件
 		printf("是否继续购物！(Y/N)\n");
 		fflush(stdin);
-		scanf("%c",&choice2);
+		choice2=getchar();
 	}while(choice2=="Y"||choice2=="y");//此条件成立则继续购物
 }
 //显示购物列表
